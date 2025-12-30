@@ -11,8 +11,11 @@ export async function GET() {
       return NextResponse.json({ success: false, error: 'Supabase未初始化' });
     }
 
+    // 保存引用，确保 TypeScript 知道它不为 null
+    const admin = supabaseAdmin;
+
     // 获取所有用户
-    const { data: authUsers, error } = await supabaseAdmin.auth.admin.listUsers();
+    const { data: authUsers, error } = await admin.auth.admin.listUsers();
     
     if (error) {
       console.error('获取用户失败:', error);
@@ -22,14 +25,14 @@ export async function GET() {
     // 获取每个用户的详细信息
     const usersWithDetails = await Promise.all(
       authUsers.users.map(async (user) => {
-        const { data: profile } = await supabaseAdmin
+        const { data: profile } = await admin
           .from('profiles')
           .select('*')
           .eq('id', user.id)
           .single();
 
         // 获取最新的订阅（不管是否active，因为禁用用户的订阅可能仍然是active）
-        const { data: subscription } = await supabaseAdmin
+        const { data: subscription } = await admin
           .from('subscriptions')
           .select('*')
           .eq('user_id', user.id)
