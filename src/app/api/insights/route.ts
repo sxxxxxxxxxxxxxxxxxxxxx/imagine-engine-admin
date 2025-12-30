@@ -84,17 +84,17 @@ export async function GET(req: NextRequest) {
       {
         stage: '首次访问',
         count: firstVisitors || 0,
-        rate: totalUsers ? Math.round((firstVisitors / totalUsers) * 100) : 0,
+        rate: totalUsers && firstVisitors ? Math.round((firstVisitors / totalUsers) * 100) : 0,
       },
       {
         stage: '完成订阅',
         count: subscribers || 0,
-        rate: totalUsers ? Math.round((subscribers / totalUsers) * 100) : 0,
+        rate: totalUsers && subscribers ? Math.round((subscribers / totalUsers) * 100) : 0,
       },
       {
         stage: '活跃使用',
         count: activeSubscriptions || 0,
-        rate: totalUsers ? Math.round((activeSubscriptions / totalUsers) * 100) : 0,
+        rate: totalUsers && activeSubscriptions ? Math.round((activeSubscriptions / totalUsers) * 100) : 0,
       },
     ];
 
