@@ -70,7 +70,7 @@ export async function GET(req: NextRequest) {
       .from('subscriptions')
       .select('*', { count: 'exact', head: true });
 
-    const { count: activeUsers } = await supabaseAdmin
+    const { count: activeSubscriptions } = await supabaseAdmin
       .from('subscriptions')
       .select('*', { count: 'exact', head: true })
       .eq('status', 'active');
@@ -93,8 +93,8 @@ export async function GET(req: NextRequest) {
       },
       {
         stage: '活跃使用',
-        count: activeUsers || 0,
-        rate: totalUsers ? Math.round((activeUsers / totalUsers) * 100) : 0,
+        count: activeSubscriptions || 0,
+        rate: totalUsers ? Math.round((activeSubscriptions / totalUsers) * 100) : 0,
       },
     ];
 
