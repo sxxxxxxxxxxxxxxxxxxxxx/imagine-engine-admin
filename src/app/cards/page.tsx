@@ -154,9 +154,9 @@ export default function CardsPage() {
                     <tr key={card.id} className="hover:bg-dark-50 dark:hover:bg-dark-800">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center gap-2">
-                          <code className="text-sm font-mono">{card.code || card.card_code || '未知'}</code>
+                          <code className="text-sm font-mono">{card.card_code || '未知'}</code>
                           <button
-                            onClick={() => copyCardCode(card.code || card.card_code)}
+                            onClick={() => copyCardCode(card.card_code)}
                             className="p-1 hover:bg-dark-100 dark:hover:bg-dark-700 rounded"
                             title="复制卡号"
                           >
@@ -169,11 +169,13 @@ export default function CardsPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                          card.is_used ? 'bg-blue-100 text-blue-800' :
-                          new Date(card.expires_at) < new Date() ? 'bg-red-100 text-red-800' :
+                          card.status === 'used' ? 'bg-blue-100 text-blue-800' :
+                          card.status === 'expired' || (card.expires_at && new Date(card.expires_at) < new Date()) ? 'bg-red-100 text-red-800' :
                           'bg-green-100 text-green-800'
                         }`}>
-                          {card.is_used ? '已使用' : new Date(card.expires_at) < new Date() ? '已过期' : '未使用'}
+                          {card.status === 'used' ? '已使用' : 
+                           card.status === 'expired' || (card.expires_at && new Date(card.expires_at) < new Date()) ? '已过期' : 
+                           '未使用'}
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-dark-500">
