@@ -4,22 +4,24 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim();
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
 
-// 验证环境变量
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.error('❌ Supabase配置缺失！');
-  console.error('请检查 .env.local 文件');
-  console.error('NEXT_PUBLIC_SUPABASE_URL:', supabaseUrl);
-  console.error('NEXT_PUBLIC_SUPABASE_ANON_KEY:', supabaseAnonKey ? '已设置' : '未设置');
-  console.error('SUPABASE_SERVICE_ROLE_KEY:', supabaseServiceKey ? '已设置' : '未设置');
+// 验证环境变量（仅在运行时检查，不在构建时抛出错误）
+if (typeof window === 'undefined' && process.env.NODE_ENV !== 'test') {
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.error('❌ Supabase配置缺失！');
+    console.error('请检查环境变量配置');
+    console.error('NEXT_PUBLIC_SUPABASE_URL:', supabaseUrl || '未设置');
+    console.error('NEXT_PUBLIC_SUPABASE_ANON_KEY:', supabaseAnonKey ? '已设置' : '未设置');
+    console.error('SUPABASE_SERVICE_ROLE_KEY:', supabaseServiceKey ? '已设置' : '未设置');
+  }
 }
 
 // 管理员客户端（拥有完整权限，仅服务端使用）
-export const supabaseAdmin = supabaseServiceKey 
-  ? createClient(supabaseUrl!, supabaseServiceKey, {
+export const supabaseAdmin = supabaseServiceKey && supabaseUrl
+  ? createClient(supabaseUrl, supabaseServiceKey, {
       auth: {
         autoRefreshToken: false,
         persistSession: false
