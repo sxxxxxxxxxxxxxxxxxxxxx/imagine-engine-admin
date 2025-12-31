@@ -5,6 +5,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAdminLogin, createAdminSession } from '@/lib/auth';
 
+// 强制动态渲染，防止静态生成时出错
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
   try {
     const { email, password } = await request.json();

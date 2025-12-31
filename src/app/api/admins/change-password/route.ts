@@ -7,6 +7,9 @@ import { supabaseAdmin } from '@/lib/supabase';
 import bcrypt from 'bcryptjs';
 import { getAdminSessionFromRequest } from '@/lib/auth';
 
+// 强制动态渲染，防止静态生成时出错
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
   try {
     // 验证管理员登录
