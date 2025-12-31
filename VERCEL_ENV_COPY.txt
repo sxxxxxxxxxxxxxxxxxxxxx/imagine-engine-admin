@@ -1,0 +1,31 @@
+# ============================================
+# Vercel 环境变量配置 - 直接复制使用
+# ============================================
+# 在 Vercel Dashboard -> Settings -> Environment Variables 中
+# 逐个添加以下环境变量，确保选择 Production 环境
+# ============================================
+
+# 变量 1: NEXT_PUBLIC_SUPABASE_URL
+# Key: NEXT_PUBLIC_SUPABASE_URL
+# Value: https://ryycsolimgocffujpunq.supabase.co
+# Environment: Production (必须选择)
+
+# 变量 2: NEXT_PUBLIC_SUPABASE_ANON_KEY
+# Key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+# Value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5eWNzb2xpbWdvY2ZmdWpwdW5xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA3NzkzMjgsImV4cCI6MjA3NjM1NTMyOH0.pj55LwIA4kasv4SlG66W6QFqVVUdlEWIFyOlOW2mKbA
+# Environment: Production (必须选择)
+
+# 变量 3: SUPABASE_SERVICE_ROLE_KEY
+# Key: SUPABASE_SERVICE_ROLE_KEY
+# Value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5eWNzb2xpbWdvY2ZmdWpwdW5xIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MDc3OTMyOCwiZXhwIjoyMDc2MzU1MzI4fQ.UC7rBoOtmdrG0JsWEXzUfqSNibMEvyUMZRUF0hZzjjY
+# Environment: Production (必须选择)
+
+# ============================================
+# 快速复制（仅值，不含注释）
+# ============================================
+
+NEXT_PUBLIC_SUPABASE_URL=https://ryycsolimgocffujpunq.supabase.co
+
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5eWNzb2xpbWdvY2ZmdWpwdW5xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA3NzkzMjgsImV4cCI6MjA3NjM1NTMyOH0.pj55LwIA4kasv4SlG66W6QFqVVUdlEWIFyOlOW2mKbA
+
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5eWNzb2xpbWdvY2ZmdWpwdW5xIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MDc3OTMyOCwiZXhwIjoyMDc2MzU1MzI4fQ.UC7rBoOtmdrG0JsWEXzUfqSNibMEvyUMZRUF0hZzjjY
