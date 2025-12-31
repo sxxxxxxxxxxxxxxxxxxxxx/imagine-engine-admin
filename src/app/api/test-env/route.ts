@@ -4,6 +4,9 @@
 
 import { NextResponse } from 'next/server';
 
+// 强制动态渲染，防止静态生成时出错
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   return NextResponse.json({
     url: process.env.NEXT_PUBLIC_SUPABASE_URL || '未设置',
@@ -13,3 +16,4 @@ export async function GET() {
     allEnvKeys: Object.keys(process.env).filter(k => k.includes('SUPABASE'))
   });
 }
+
