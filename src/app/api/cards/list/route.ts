@@ -5,6 +5,9 @@
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 
+// 强制动态渲染，防止静态生成时出错
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     if (!supabaseAdmin) {
@@ -14,7 +17,7 @@ export async function GET() {
     const { data, error } = await supabaseAdmin
       .from('activation_codes')
       .select('*')
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: false);
 
     if (error) {
       console.error('查询卡片失败:', error);
