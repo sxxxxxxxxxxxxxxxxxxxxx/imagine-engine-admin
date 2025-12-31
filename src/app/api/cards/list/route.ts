@@ -17,7 +17,7 @@ export async function GET() {
     const { data, error } = await supabaseAdmin
       .from('activation_codes')
       .select('*')
-      .order('created_at', { ascending: false);
+      .order('created_at', { ascending: false });
 
     if (error) {
       console.error('查询卡片失败:', error);
