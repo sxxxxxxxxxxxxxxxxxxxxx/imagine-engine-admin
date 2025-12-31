@@ -1,0 +1,28 @@
+# Vercel 环境变量配置
+# 直接复制到 Vercel Dashboard -> Settings -> Environment Variables
+
+# ============================================
+# 必需配置 - Supabase 数据库
+# ============================================
+
+NEXT_PUBLIC_SUPABASE_URL=https://ryycsolimgocffujpunq.supabase.co
+
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ5eWNzb2xpbWdvY2ZmdWpwdW5xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA3NzkzMjgsImV4cCI6MjA3NjM1NTMyOH0.pj55LwIA4kasv4SlG66W6QFqVVUdlEWIFyOlOW2mKbA
+
+# ⚠️ 重要：需要从 Supabase Dashboard 获取
+# 获取方式：Supabase Dashboard -> Settings -> API -> service_role key
+SUPABASE_SERVICE_ROLE_KEY=请从_Supabase_Dashboard_获取_service_role_key
+
+# ============================================
+# 可选配置 - 管理员账号
+# ============================================
+
+ADMIN_EMAIL=3402365924@qq.com
+
+ADMIN_PASSWORD=sx2580147jj
+
+# ============================================
+# 可选配置 - Microsoft Clarity
+# ============================================
+
+# NEXT_PUBLIC_CLARITY_ID=你的_clarity_project_id
