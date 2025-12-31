@@ -1,6 +1,9 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
 
+// 强制动态渲染，防止静态生成时出错
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: NextRequest) {
   try {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;

@@ -5,6 +5,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 
+// 强制动态渲染，防止静态生成时出错
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
   try {
     const { userId, planType, quotaAmount, durationDays } = await request.json();
