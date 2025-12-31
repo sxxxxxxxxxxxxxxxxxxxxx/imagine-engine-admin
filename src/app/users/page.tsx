@@ -15,6 +15,7 @@ interface UserData {
   created_at: string;
   email_confirmed_at?: string;
   profile?: {
+    display_name?: string;
     username?: string;
     avatar_url?: string;
     is_disabled?: boolean;
