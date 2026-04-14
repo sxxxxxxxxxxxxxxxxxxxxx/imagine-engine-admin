@@ -2,14 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import AdminLayout from '@/components/AdminLayout';
-import { Plus, Download, Trash2, Copy } from 'lucide-react';
-import { supabaseAdmin } from '@/lib/supabase';
+import { Plus, Trash2, Copy } from 'lucide-react';
 
 interface QuotaCard {
   id: string;
-  card_code: string;
+  code: string;
   quota_amount: number;
-  status: 'unused' | 'used' | 'expired';
+  is_used: boolean;
   user_id?: string;
   created_at: string;
   used_at?: string;
@@ -31,7 +30,7 @@ export default function CardsPage() {
     try {
       const response = await fetch('/api/cards/list');
       if (!response.ok) throw new Error('获取失败');
-      
+
       const result = await response.json();
       if (result.success) {
         setCards(result.cards || []);
@@ -57,7 +56,7 @@ export default function CardsPage() {
       });
 
       const result = await response.json();
-      
+
       if (!result.success) {
         throw new Error(result.error);
       }
@@ -86,6 +85,10 @@ export default function CardsPage() {
     alert('卡号已复制！');
   };
 
+  const isExpired = (card: QuotaCard) => !!card.expires_at && new Date(card.expires_at) < new Date();
+  const isUsed = (card: QuotaCard) => card.is_used;
+  const isUnused = (card: QuotaCard) => !card.is_used && !isExpired(card);
+
   return (
     <AdminLayout>
       <div className="space-y-6">
@@ -113,19 +116,19 @@ export default function CardsPage() {
           <div className="bg-white dark:bg-dark-900 rounded-xl p-6 border border-dark-200 dark:border-dark-800">
             <p className="text-dark-600 dark:text-dark-400 text-sm mb-2">未使用</p>
             <p className="text-2xl font-bold text-green-600">
-              {cards.filter(c => c.status === 'unused').length}
+              {cards.filter(isUnused).length}
             </p>
           </div>
           <div className="bg-white dark:bg-dark-900 rounded-xl p-6 border border-dark-200 dark:border-dark-800">
             <p className="text-dark-600 dark:text-dark-400 text-sm mb-2">已使用</p>
             <p className="text-2xl font-bold text-blue-600">
-              {cards.filter(c => c.status === 'used').length}
+              {cards.filter(isUsed).length}
             </p>
           </div>
           <div className="bg-white dark:bg-dark-900 rounded-xl p-6 border border-dark-200 dark:border-dark-800">
             <p className="text-dark-600 dark:text-dark-400 text-sm mb-2">已过期</p>
             <p className="text-2xl font-bold text-red-600">
-              {cards.filter(c => c.status === 'expired').length}
+              {cards.filter(card => !card.is_used && isExpired(card)).length}
             </p>
           </div>
         </div>
@@ -154,9 +157,9 @@ export default function CardsPage() {
                     <tr key={card.id} className="hover:bg-dark-50 dark:hover:bg-dark-800">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center gap-2">
-                          <code className="text-sm font-mono">{card.card_code || '未知'}</code>
+                          <code className="text-sm font-mono">{card.code || '未知'}</code>
                           <button
-                            onClick={() => copyCardCode(card.card_code)}
+                            onClick={() => copyCardCode(card.code)}
                             className="p-1 hover:bg-dark-100 dark:hover:bg-dark-700 rounded"
                             title="复制卡号"
                           >
@@ -169,13 +172,11 @@ export default function CardsPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                          card.status === 'used' ? 'bg-blue-100 text-blue-800' :
-                          card.status === 'expired' || (card.expires_at && new Date(card.expires_at) < new Date()) ? 'bg-red-100 text-red-800' :
+                          isUsed(card) ? 'bg-blue-100 text-blue-800' :
+                          isExpired(card) ? 'bg-red-100 text-red-800' :
                           'bg-green-100 text-green-800'
                         }`}>
-                          {card.status === 'used' ? '已使用' : 
-                           card.status === 'expired' || (card.expires_at && new Date(card.expires_at) < new Date()) ? '已过期' : 
-                           '未使用'}
+                          {isUsed(card) ? '已使用' : isExpired(card) ? '已过期' : '未使用'}
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-dark-500">
